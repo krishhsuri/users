@@ -1,4 +1,36 @@
 package com.test.users.service;
 
-public class UserServiceImpl {
+import com.test.users.User;
+import com.test.users.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public User addNewUser(User user) {
+        User save;
+        try {
+            save = userRepository.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed operation: User could not be saved:", e);
+        }
+        return save;
+    }
+
+    @Override
+    public User findUser(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userRepository.findAll();  // This already returns List<User>
+    }
 }
