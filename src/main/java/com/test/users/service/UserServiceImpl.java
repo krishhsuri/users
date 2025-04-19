@@ -33,4 +33,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsers() {
         return userRepository.findAll();  // This already returns List<User>
     }
+
+    @Override
+    public User findByName(String name) {
+        return userRepository.findByName(name);
+    }
 }
